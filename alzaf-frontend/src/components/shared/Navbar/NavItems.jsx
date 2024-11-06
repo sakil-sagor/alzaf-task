@@ -1,44 +1,39 @@
 "use client";
 
-import { customLoader } from "@/utils/customLoader";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
-import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosArrowDown, IoIosHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 
 const NavItems = ({ className }) => {
   const pathname = usePathname();
-
   const navLinks = [
-    { id: 1, url: "/", label: "Home" },
-    { id: 2, url: "/services", label: "Services" },
-    // { id: 3, url: "/projects", label: "Project" },
-    { id: 4, url: "/projectShowcase", label: "Project Showcase" },
-    { id: 5, url: "/successStory", label: "Success" },
-    { id: 6, url: "/blogs", label: "Blog" },
-    { id: 7, url: "/about-us", label: "About Us" },
-    { id: 8, url: "/contactUs", label: "Contact Us" },
-    { id: 9, url: "/dashboard", label: "Dashboard" },
+    {
+      id: 1,
+      url: "/shop",
+      label: (
+        <>
+          <div className="flex items-center ">
+            <p>Language </p>
+            <IoIosArrowDown />
+          </div>
+        </>
+      ),
+    },
+    { id: 2, url: "/shop", label: "Help Center" },
+    { id: 3, url: "/shop", label: "Helpline: 0964781656" },
+    { id: 4, url: "/shop", label: "Become a Seller" },
+    { id: 5, url: "/shop", label: "Order Track" },
   ];
 
   return (
     <div className="flex flex-col items-center md:flex-row pt-8">
-      <div className="mb-8">
-        <Link className="" href="/">
-          <Image
-            loader={customLoader}
-            src="/alzaf-logo.png"
-            width={120}
-            height={120}
-            alt=""
-          />
-        </Link>
-      </div>
       <div className="flex flex-col items-center md:flex-row">
         <div className=" block md:hidden   ">
-          <div className=" w-full max-w-sm items-center space-y-4">
+          <div className="flex w-full max-w-sm items-center space-x-4 mb-4">
             <div className="relative ">
               <div className=" bg-[#F5F5F5] p-2 rounded-lg">
                 <FaRegUser className="text-2xl" />
@@ -56,7 +51,25 @@ const NavItems = ({ className }) => {
           </div>
         </div>
       </div>
-
+      <div className="flex flex-col items-center md:flex-row">
+        {navLinks.map((link) => (
+          <Button asChild variant="link" key={link.id}>
+            <Link href={link.url} className="font-semibold">
+              {link.label}
+            </Link>
+          </Button>
+        ))}
+      </div>
+      <div className="text-orange-500 text-sm">
+        <Link href="/login" className="font-semibold text-orange-500">
+          Login
+        </Link>
+      </div>
+      <div className="text-orange-500 text-sm mt-2">
+        <Link href="/registration" className="font-semibold text-orange-500">
+          Sign Up
+        </Link>
+      </div>
       <div className="mt-2 block md:hidden">
         <Link href="/AboutUs#contact-section">
           {" "}

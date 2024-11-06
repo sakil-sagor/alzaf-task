@@ -13,6 +13,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { RiMenu3Line } from "react-icons/ri";
 import NavItems from "./NavItems";
+import TopNavbar from "./TopNavbar";
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -38,11 +39,12 @@ const Navbar = () => {
   }, [lastScrollY]);
   return (
     <nav
-      className={`fixed z-50 w-full bg-white py-2 shadow-lg backdrop-blur-md duration-300 ${
-        isVisible ? "top-2" : "-top-24"
+      className={`fixed z-50 w-full bg-white shadow-lg backdrop-blur-md duration-300 ${
+        isVisible ? "top-0" : "-top-24"
       }`}
     >
-      <div className="flex items-center justify-between container mx-auto gap-x-10 px-2">
+      <TopNavbar></TopNavbar>
+      <div className="flex items-center justify-between container mx-auto gap-x-10 px-2 py-4">
         <Link className="" href="/">
           <Image
             loader={customLoader}
@@ -58,7 +60,7 @@ const Navbar = () => {
             <Input
               type="email"
               placeholder="Search Product"
-              className="mr-0 rounded-r-none bg-[#EFF0F5] "
+              className="mr-0 rounded-r-none bg-[#EFF0F5] focus:ring-orange-500"
             />
             <Button
               className="bg-[#F97316] ml-[-5px] hover:bg-orange-600"
@@ -70,11 +72,11 @@ const Navbar = () => {
         </div>
         <div className="hidden md:block  ">
           <div className="flex w-full max-w-sm items-center space-x-4">
-            <div>
-              <div className="relative bg-[#F5F5F5] p-2 rounded-lg">
+            <div className="relative">
+              <div className=" bg-[#F5F5F5] p-2 rounded-lg">
                 <FaRegUser />
               </div>
-              <p className="text-[8px] bg-[#F97316] px-[4px] py-[3px]  text-white rounded-full absolute top-0  ml-6">
+              <p className="text-[8px] bg-[#F97316] px-[4px] py-[3px]  text-white rounded-full absolute top-[-5]  ml-6">
                 20
               </p>
             </div>
@@ -88,7 +90,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:block  ">
-          <Link href="/AboutUs#contact-section">
+          <Link href="/shop">
             {" "}
             <div>
               <Image
