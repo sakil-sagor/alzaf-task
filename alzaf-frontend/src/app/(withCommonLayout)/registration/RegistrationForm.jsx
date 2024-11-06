@@ -4,8 +4,8 @@ import { useFormState } from "react-dom";
 
 import { toast } from "sonner";
 
-import ActionSubmitButton from "@/components/FrontendComponent/action/ActionSubmitButton";
 import { signUpUser } from "@/components/FrontendComponent/action/authAction";
+import Image from "next/image";
 
 const RegistrationForm = () => {
   const ref = createRef();
@@ -18,53 +18,137 @@ const RegistrationForm = () => {
     }
   }, [state, ref]);
   return (
-    <form
-      ref={ref}
-      action={fromAction}
-      className="justify-center rounded-lg md:m-0 md:flex"
-    >
-      <div className="rounded-lg bg-white px-4 py-8 shadow-2xl shadow-[#001955] md:w-96">
-        <div className="mb-3">
-          <span className="mb-2 block font-semibold text-gray-600">
-            Full Name
-          </span>
-          <input
-            placeholder=" Your name "
-            required
-            className="w-full rounded-md border border-gray-400 bg-white p-2"
-            type="text"
-            name="fullName"
-          />
-        </div>
-        <div className="mb-3">
-          <span className="mb-2 block font-semibold text-gray-600">Email</span>
-          <input
-            placeholder=" Your email "
-            required
-            className="w-full rounded-md border border-gray-400 bg-white p-2"
-            type="email"
-            name="email"
-          />
-        </div>
-        <div className="mb-3">
-          <span className="mb-2 block font-semibold text-gray-600">
-            Password
-          </span>
-          <input
-            placeholder="Password"
-            type="password"
-            name="password"
-            required
-            className="w-full rounded-md border border-gray-400 bg-white p-2"
-          />
-        </div>
-        <div></div>
-        <br />
-        <div>
-          <ActionSubmitButton>Sign up</ActionSubmitButton>
-        </div>
+    <div className=" min-h-screen bg-gray-100 pt-20">
+      <div className="w-full  bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+        <form className="grid grid-cols-2 justify-between gap-6">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold  mb-4">Welcome to Alzaf.com</h2>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Full name
+              </label>
+              <input
+                type="text"
+                placeholder="Full name"
+                className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number or Email
+              </label>
+              <input
+                type="text"
+                placeholder="Phone or Email"
+                className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                placeholder="Please enter your password"
+                className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                placeholder="Confirm password"
+                className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+          </div>
+          <div className="space-y-4 mb-4">
+            <div className="text-right mt-4">
+              <a
+                href="#"
+                className="text-orange-500 font-medium hover:underline"
+              >
+                Login
+              </a>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Birthday
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                <select className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                  <option>Month</option>
+                  <option>January</option>
+                  <option>February</option>
+                  <option>March</option>
+                  {/* Add other months */}
+                </select>
+                <select className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                  <option>Day</option>
+                  <option>1</option>
+                  <option>2</option>
+                  {/* Add other days */}
+                </select>
+                <select className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                  <option>Year</option>
+                  <option>2000</option>
+                  <option>2001</option>
+                  {/* Add other years */}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="h-4 w-4 text-orange-500 focus:ring-orange-400 border-gray-300 rounded"
+              />
+              <label className="ml-2 text-sm text-gray-700">
+                I’d like to receive exclusive offers and promotions via SMS.
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-2 mt-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transition"
+            >
+              Sign Up
+            </button>
+
+            <div className="my-4 text-center text-gray-500">Or</div>
+
+            <div className="space-y-2">
+              <button className="w-full py-2 flex items-center justify-center border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 transition">
+                <Image
+                  src="/facebook-icon.png"
+                  alt="Facebook"
+                  className="w-5 h-5 mr-2"
+                  height={50}
+                  width={50}
+                />
+                Sign Up with Facebook
+              </button>
+
+              <button className="w-full py-2 flex items-center justify-center border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition">
+                <Image
+                  src="/google-icon.png"
+                  alt="Google"
+                  className="w-5 h-5 mr-2"
+                  height={50}
+                  width={50}
+                />
+                Sign Up with Google
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 };
 
