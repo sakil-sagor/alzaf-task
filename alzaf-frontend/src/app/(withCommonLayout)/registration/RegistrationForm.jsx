@@ -5,7 +5,8 @@ import { useFormState } from "react-dom";
 import { toast } from "sonner";
 
 import { signUpUser } from "@/components/FrontendComponent/action/authAction";
-import Image from "next/image";
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const RegistrationForm = () => {
   const ref = createRef();
@@ -123,25 +124,13 @@ const RegistrationForm = () => {
             <div className="my-4 text-center text-gray-500">Or</div>
 
             <div className="space-y-2">
-              <button className="w-full py-2 flex items-center justify-center border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 transition">
-                <Image
-                  src="/facebook-icon.png"
-                  alt="Facebook"
-                  className="w-5 h-5 mr-2"
-                  height={50}
-                  width={50}
-                />
+              <button className="w-full py-2 flex items-center justify-center gap-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 transition">
+                <FaFacebook className="text-2xl" />
                 Sign Up with Facebook
               </button>
 
-              <button className="w-full py-2 flex items-center justify-center border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition">
-                <Image
-                  src="/google-icon.png"
-                  alt="Google"
-                  className="w-5 h-5 mr-2"
-                  height={50}
-                  width={50}
-                />
+              <button className="w-full py-2 flex items-center justify-center gap-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition">
+                <FcGoogle className="text-2xl" />
                 Sign Up with Google
               </button>
             </div>
