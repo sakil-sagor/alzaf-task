@@ -3,10 +3,7 @@ import SliderHero from "./SliderHero";
 
 export default async function BannerSection() {
   const res = await fetch(
-    "https://api.shope.com.bd/api/v1/public/hero-categories",
-    {
-      cache: "no-store",
-    }
+    "https://api.shope.com.bd/api/v1/public/hero-categories"
   );
   const data = await res.json();
 
