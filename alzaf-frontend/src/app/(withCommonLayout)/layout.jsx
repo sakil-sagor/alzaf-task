@@ -5,7 +5,7 @@ export default function HomeLayout({ children }) {
   return (
     <div>
       <Navbar />
-      <div>{children}</div>
+      <div className="mt-28">{children}</div>
       <Footer />
     </div>
   );

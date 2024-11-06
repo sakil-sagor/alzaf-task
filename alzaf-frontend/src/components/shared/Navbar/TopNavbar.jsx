@@ -30,7 +30,7 @@ const TopNavbar = () => {
         <div className="flex flex-col items-center md:flex-row">
           {navLinksLeft.map((link) => (
             <Button asChild variant="link" key={link.id}>
-              <Link href={link.url} className="font-semibold">
+              <Link href={link.url} className=" ">
                 {link.label}
               </Link>
             </Button>
@@ -39,22 +39,19 @@ const TopNavbar = () => {
         <div className="flex flex-col items-center md:flex-row">
           {navLinksRight.map((link) => (
             <Button asChild variant="link" key={link.id}>
-              <Link href={link.url} className="font-semibold">
+              <Link href={link.url} className=" ">
                 {link.label}
               </Link>
             </Button>
           ))}
           <div className="text-orange-500 text-sm">
-            <Link href="/login" className="font-semibold text-orange-500">
+            <Link href="/login" className="  text-orange-500">
               Login
             </Link>
 
             <span className="mr-1"> /</span>
 
-            <Link
-              href="/registration"
-              className="font-semibold text-orange-500"
-            >
+            <Link href="/registration" className="  text-orange-500">
               Sign Up
             </Link>
           </div>
