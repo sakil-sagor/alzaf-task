@@ -5,6 +5,7 @@ import { useFormState } from "react-dom";
 import { toast } from "sonner";
 
 import { signUpUser } from "@/components/FrontendComponent/action/authAction";
+import Link from "next/link";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
@@ -21,9 +22,19 @@ const RegistrationForm = () => {
   return (
     <div className=" min-h-screen bg-gray-100 pt-20">
       <div className="w-full  bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-        <form className="grid grid-cols-2 justify-between gap-6">
+        <form className="grid grid-cols-1 md:grid-cols-2 justify-between gap-6">
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold  mb-4">Welcome to Alzaf.com</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold  ">Welcome to Alzaf.com</h2>
+              <div>
+                <Link
+                  href="/login"
+                  className="text-orange-500 font-bold text-xl hover:underline md:hidden "
+                >
+                  Login
+                </Link>
+              </div>
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Full name
@@ -69,13 +80,13 @@ const RegistrationForm = () => {
             </div>
           </div>
           <div className="space-y-4 mb-4">
-            <div className="text-right mt-4">
-              <a
-                href="#"
+            <div className="text-right mt-4 hidden md:block">
+              <Link
+                href="/login"
                 className="text-orange-500 font-medium hover:underline"
               >
                 Login
-              </a>
+              </Link>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">

@@ -49,7 +49,7 @@ const TopNavbar = () => {
               Login
             </Link>
 
-            <span className="mr-2"> /</span>
+            <span className="mr-1"> /</span>
 
             <Link
               href="/registration"
