@@ -1,137 +1,177 @@
-import Link from "next/link";
-import { FaFacebook, FaHome, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { IoMdMail } from "react-icons/io";
-import { IoCall } from "react-icons/io5";
+import Image from "next/image";
+import { FaApple, FaGooglePlay } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div
-      style={{
-        backgroundImage: "url('https://i.postimg.cc/xdsS0MDy/dna-Footer.png')",
-      }}
-      className="w-full bg-cover bg-no-repeat"
-    >
-      <div className="bg-[#0A2F4D]">
-        <div className="flex flex-wrap gap-x-28 gap-y-10 py-10 ">
-          {/* First Column */}
-          <ul className="flex flex-col gap-3">
-            <li className="flex gap-2 text-3xl font-bold text-white">
-              DCL Engineering
-            </li>
-            <li className="max-w-80">
-              <p className="mt-5 font-medium leading-7 text-gray-300">
-                Focusing on medium to large-scale commercial construction
-                projects, we work with both investors and developers to create
-                landmarks that make an impact.
-              </p>
-            </li>
-          </ul>
+    <footer className="bg-gray-900 text-white py-10">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 text-center gap-8 px-2">
+        {/* Company Info */}
+        <div>
+          <div className="flex justify-center">
+            <Image
+              src="/alzaf_footer_logo.webp"
+              alt="logo"
+              height={120}
+              width={120}
+            />
+          </div>
+          <p className="mt-4">
+            #4613, Dada Tower (2nd Floor)
+            <br />
+            Madhupur, Tangail Dhaka, Bangladesh.
+          </p>
+          <p className="mt-2">+8809613815815</p>
+          <p className="mt-2">support@alzaf.com</p>
+        </div>
 
-          {/* Second Column */}
-          <ul className="flex flex-col gap-y-3">
-            <li className="text-2xl font-bold text-white">Links</li>
-            <li className="mt-5">
-              <Link href="/" className="text-gray-300">
-                Home
-              </Link>
+        {/* Company Links */}
+        <div>
+          <h3 className="font-semibold mb-4">Company Links</h3>
+          <ul>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                About Alzaf
+              </a>
             </li>
-
-            <li className="">
-              <Link href="/services" className="text-gray-300">
-                Services
-              </Link>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Alzaf Payment
+              </a>
             </li>
-            <li>
-              <Link href="/projects" className="text-gray-300">
-                Projects
-              </Link>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Alzaf Blog
+              </a>
             </li>
-            <li>
-              <Link href="/about-us" className="text-gray-300">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/blogs" className="text-gray-300">
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link href="/sucess" className="text-gray-300">
-                Success
-              </Link>
-            </li>
-          </ul>
-
-          {/* Third Column */}
-          <ul className="grid gap-y-3">
-            <li className="text-2xl font-bold text-white">
-              Contact Information
-            </li>
-            <li className="max-w-80">
-              {" "}
-              <p className="mt-5 font-medium leading-7 text-gray-300">
-                You Can Always contact with us via email or phone. Get in touch
-                with contact and get a quote form
-              </p>
-            </li>
-            <li className="mt-5 flex gap-x-3 text-gray-300">
-              <FaHome className="mt-1 text-xl text-white" />
-              HM Plaza, (13th Floor) Sector-03 <br /> Uttara, Dhaka-1230
-            </li>
-            <li className="flex gap-x-3 text-gray-300">
-              <IoCall className="mt-1 text-xl text-white" />
-              +880 1700978687
-            </li>
-            <li className="flex gap-x-3 text-gray-300">
-              <IoMdMail className="mt-1 text-xl text-white" />
-              dclengineering@gmail.com
-            </li>
-          </ul>
-
-          {/* Socials */}
-          <ul className="flex flex-col gap-y-3">
-            <li className="text-2xl font-bold text-white">Socials</li>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1824.3485041533095!2d90.39577399358598!3d23.864890637620633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c411fec45ab9%3A0xa29fdaaa39a7c771!2sSector-04%2CUttara!5e0!3m2!1sen!2sbd!4v1727179036164!5m2!1sen!2sbd"
-              width="250"
-              height="170"
-              style={{ border: 0, marginTop: "0px" }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-            <li className="mt-5 flex gap-4">
-              <Link href="https://www.facebook.com/" target="_blank">
-                {" "}
-                <div className="rounded-sm border p-1.5">
-                  <FaFacebook className="text-xl text-white" />
-                </div>
-              </Link>
-
-              <Link href="https://www.instagram.com/" target="_blank">
-                {" "}
-                <div className="rounded-sm border p-1.5">
-                  <FaInstagram className="text-xl bg-white rounded-md text-[#0A2F4D]" />
-                </div>
-              </Link>
-              <Link href="https://www.linkedin.com/" target="_blank">
-                {" "}
-                <div className="rounded-sm border p-1.5">
-                  <FaLinkedinIn className="text-xl text-white" />
-                </div>
-              </Link>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Alzaf Apps
+              </a>
             </li>
           </ul>
         </div>
-        <div className="border-t bg-[#0A2F4D] border-gray-300 p-5">
-          <h1 className="text-center font-semibold text-gray-300">
-            {" "}
-            &copy; Copyright DCL Engineering 2023 . All right reserved.
-          </h1>
+
+        {/* Customer Care */}
+        <div>
+          <h3 className="font-semibold mb-4">Customer Care</h3>
+          <ul>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Help Center
+              </a>
+            </li>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                How to Buy
+              </a>
+            </li>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Returns & Refunds
+              </a>
+            </li>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h3 className="font-semibold mb-4">Quick Links</h3>
+          <ul>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                How to Buy
+              </a>
+            </li>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Returns & Refunds
+              </a>
+            </li>
+            <li className="mb-2">
+              <a href="#" className="hover:underline">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="">
+          <span className="font-semibold">Payment Method</span>
+          <div className="flex items-center justify-center mt-2 space-x-4">
+            <div className="p-2 rounded-md bg-white">
+              <Image
+                src="/city-bank.webp"
+                alt="City"
+                className="w-8 h-8"
+                width={32}
+                height={32}
+              />
+            </div>
+            <div className="p-2 rounded-md bg-white">
+              <Image
+                src="/dbbl.webp"
+                alt="DBBL"
+                className="w-8 h-8"
+                width={32}
+                height={32}
+              />
+            </div>
+            <div className="p-2 rounded-md bg-white">
+              <Image
+                src="/ncc-bank.webp"
+                alt="NCC Bank"
+                className="w-8 h-8"
+                width={32}
+                height={32}
+              />
+            </div>
+            <div className="p-2 rounded-md bg-white">
+              <Image
+                src="/bkash.webp"
+                alt="Bkash"
+                className="w-8 h-8"
+                width={32}
+                height={32}
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Payment Method & Download Apps */}
+      <div className="container mx-auto px-6 mt-8 flex flex-col md:flex-row items-center justify-between  pt-6">
+        <div className="mx-auto  mt-6 md:mt-0">
+          <div className="text-center">
+            <span className="font-semibold ">Download Apps</span>
+            <div className="md:flex gap-x-6 mt-4">
+              <div className="flex justify-between items-center gap-x-3 bg-black px-5 py-2 rounded-md">
+                <FaApple className="text-4xl" />
+                <div>
+                  <p className="text-[12px]"> Download On</p>
+                  <p>Apple Store</p>
+                </div>
+              </div>
+              <div className="flex justify-between items-center gap-x-3 bg-black px-5 py-2 rounded-md mt-6 md:mt-0">
+                <FaGooglePlay className="text-4xl" />
+                <div>
+                  <p className="text-[12px]"> Download On</p>
+                  <p>Apple Store</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Copyright */}
+      <div className="text-center text-sm  mt-8 text-white">
+        &copy; 2024 Alzaf.com All Rights Reserved.
+      </div>
+    </footer>
   );
 };
 
