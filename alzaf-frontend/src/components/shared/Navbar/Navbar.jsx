@@ -18,7 +18,11 @@ import TopNavbar from "./TopNavbar";
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleNavItemClick = () => {
+    setIsOpen(false); // Close the sidebar
+  };
   const handleScroll = () => {
     if (window.scrollY > lastScrollY) {
       // If scrolling down
@@ -103,12 +107,12 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <Sheet>
-          <SheetTrigger className="md:hidden">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger className="md:hidden" onClick={() => setIsOpen(true)}>
             <RiMenu3Line className="size-5" />
           </SheetTrigger>
           <SheetContent>
-            <NavItems />
+            <NavItems onNavItemClick={handleNavItemClick} />
           </SheetContent>
         </Sheet>
       </div>

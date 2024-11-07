@@ -81,12 +81,12 @@ const CustomSlider = ({ slides }) => {
                   index === currentIndex ? "opacity-100 z-20" : "opacity-0 z-10"
                 }`}
               >
-                <div className="w-full h-full bg-black bg-opacity-50 flex flex-col justify-center ">
+                <div className="w-3/4 md:w-full h-full bg-black bg-opacity-50 flex flex-col justify-center ">
                   <div>
                     <Image
                       src={slide?.backgroundImage}
                       alt=""
-                      className=" h-full "
+                      className="h-full w-full md:w-full object-left md:object-cover"
                       fill
                     />
                   </div>

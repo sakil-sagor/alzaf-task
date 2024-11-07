@@ -14,17 +14,17 @@ export default async function BannerSection() {
     },
     {
       id: 2,
-      backgroundImage: "/slide banner1.png",
+      backgroundImage: "/slidebanner1.png",
     },
     {
       id: 3,
-      backgroundImage: "/slide banner2.png",
+      backgroundImage: "/slidebanner2.png",
     },
   ];
   return (
     <div className="relative">
       <SliderHero slides={slides} />
-      <div className="container mx-auto px-2">
+      <div className="container mx-auto px-2 hidden md:block">
         <div className="absolute top-0 z-50 container mx-auto px-2 h-full">
           <BannerCategory data={data}></BannerCategory>
         </div>

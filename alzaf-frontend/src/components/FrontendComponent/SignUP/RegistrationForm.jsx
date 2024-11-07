@@ -20,7 +20,7 @@ const RegistrationForm = () => {
     }
   }, [state, ref]);
   return (
-    <div className=" min-h-screen bg-gray-100 pt-20">
+    <div className=" min-h-screen bg-gray-100 md:pt-20">
       <div className="w-full  bg-white p-8 rounded-lg shadow-lg border border-gray-200">
         <form className="grid grid-cols-1 md:grid-cols-2 justify-between gap-6">
           <div className="space-y-4">

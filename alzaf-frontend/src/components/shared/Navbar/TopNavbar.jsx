@@ -26,8 +26,8 @@ const TopNavbar = () => {
 
   return (
     <div className="bg-[#F0F1F1]">
-      <div className="hidden md:flex flex-col items-center justify-between  md:flex-row container mx-auto px-2 ">
-        <div className="flex flex-col items-center md:flex-row">
+      <div className=" md:flex flex-col items-center justify-between  md:flex-row container mx-auto px-2 ">
+        <div className="flex  items-center flex-row">
           {navLinksLeft.map((link) => (
             <Button asChild variant="link" key={link.id}>
               <Link href={link.url} className=" ">
@@ -36,7 +36,7 @@ const TopNavbar = () => {
             </Button>
           ))}
         </div>
-        <div className="flex flex-col items-center md:flex-row">
+        <div className="hidden md:flex flex-col items-center md:flex-row">
           {navLinksRight.map((link) => (
             <Button asChild variant="link" key={link.id}>
               <Link href={link.url} className=" ">
@@ -44,7 +44,7 @@ const TopNavbar = () => {
               </Link>
             </Button>
           ))}
-          <div className="text-orange-500 text-sm">
+          <div className="text-orange-500 text-sm hidden md:block">
             <Link href="/login" className="  text-orange-500">
               Login
             </Link>
