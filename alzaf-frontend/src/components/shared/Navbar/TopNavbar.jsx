@@ -27,9 +27,14 @@ const TopNavbar = () => {
   return (
     <div className="bg-[#F0F1F1]">
       <div className=" md:flex flex-col items-center justify-between  md:flex-row container mx-auto px-2 ">
-        <div className="flex  items-center flex-row">
+        <div className="flex  items-center justify-between flex-row ">
           {navLinksLeft.map((link) => (
-            <Button asChild variant="link" key={link.id}>
+            <Button
+              asChild
+              variant="link"
+              key={link.id}
+              className="px-0 md:px-2"
+            >
               <Link href={link.url} className=" ">
                 {link.label}
               </Link>

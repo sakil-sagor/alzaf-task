@@ -1,6 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 export async function signUpUser(pre, fromData) {
+  console.log(fromData);
   try {
     const formattedData = JSON.stringify(Object.fromEntries(fromData));
 

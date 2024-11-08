@@ -62,7 +62,7 @@ const CustomSlider = ({ slides }) => {
   return (
     <div className="mt-16">
       <div
-        className="relative w-full h-[50vh] overflow-hidden shadow-lg shadow-blue-500/50"
+        className="relative w-full h-[60vh] overflow-hidden shadow-lg shadow-blue-500/50"
         ref={sliderRef}
         onMouseDown={handleStart}
         onMouseMove={handleMove}
@@ -86,7 +86,7 @@ const CustomSlider = ({ slides }) => {
                     <Image
                       src={slide?.backgroundImage}
                       alt=""
-                      className="h-full w-full md:w-full object-left md:object-cover"
+                      className="h-full w-full md:w-full object- md:object-cover"
                       fill
                     />
                   </div>

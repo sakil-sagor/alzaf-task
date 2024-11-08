@@ -12,13 +12,10 @@ export default async function BannerSection() {
       id: 1,
       backgroundImage: "/slide banner.png",
     },
+
     {
       id: 2,
       backgroundImage: "/slidebanner1.png",
-    },
-    {
-      id: 3,
-      backgroundImage: "/slidebanner2.png",
     },
   ];
   return (
