@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CategorySideItems from "./CategorySideItems";
 
-// Main CategoryBar component
 const CategoryBar = () => {
   const [categories, setCategories] = useState([]);
 

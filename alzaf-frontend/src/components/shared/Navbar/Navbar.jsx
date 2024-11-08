@@ -21,14 +21,12 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleNavItemClick = () => {
-    setIsOpen(false); // Close the sidebar
+    setIsOpen(false);
   };
   const handleScroll = () => {
     if (window.scrollY > lastScrollY) {
-      // If scrolling down
       setIsVisible(false);
     } else {
-      // If scrolling up
       setIsVisible(true);
     }
     setLastScrollY(window.scrollY);
@@ -80,7 +78,7 @@ const Navbar = () => {
               <div className=" bg-[#F5F5F5] p-2 rounded-lg">
                 <FaRegUser />
               </div>
-              <p className="text-[8px] bg-[#F97316] px-[4px] py-[3px]  text-white rounded-full absolute top-[-5]  ml-6">
+              <p className="text-[8px] bg-[#F97316] px-[4px] py-[3px]  text-white rounded-full absolute top-[-10px]  ml-6">
                 20
               </p>
             </div>

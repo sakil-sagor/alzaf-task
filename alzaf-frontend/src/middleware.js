@@ -1,50 +1,54 @@
-export { default } from "next-auth/middleware";
+import { jwtDecode } from "jwt-decode";
+import { getToken } from "next-auth/jwt";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-export const config = { matcher: ["/dashboard/:page*"] };
+const publicRoutes = ["/login", "/registration"];
 
-// import { jwtDecode } from "jwt-decode";
+const roleBasedPrivateRoutes = {
+  admin: [/^\/dashboard\/?.*/],
+};
 
-// import { cookies } from "next/headers";
-// import { NextResponse } from "next/server";
+export async function middleware(request) {
+  const { pathname } = request.nextUrl;
 
-// const AuthRoutes = ["/login", "/registration"];
+  if (publicRoutes.includes(pathname)) {
+    return NextResponse.next();
+  }
 
-// const roleBasedPrivateRoutes = {
-//   admin: [/^\/dashboard\/?.*/],
-// };
+  const authToken = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+  if (authToken) {
+    return NextResponse.next();
+  }
 
-// export async function middleware(request) {
-//   const { pathname } = request.nextUrl;
+  const accessToken = cookies().get("accessToken")?.value;
+  if (accessToken) {
+    let decodedData;
+    try {
+      decodedData = jwtDecode(accessToken);
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
 
-//   if (AuthRoutes.includes(pathname)) {
-//     return NextResponse.next();
-//   }
+    const role = decodedData?.role;
+    if (role && roleBasedPrivateRoutes[role]) {
+      const routes = roleBasedPrivateRoutes[role];
+      if (routes.some((route) => pathname.match(route))) {
+        return NextResponse.next();
+      }
+    }
 
-//   const accessToken = cookies().get("accessToken")?.value;
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-//   if (!accessToken) {
-//     return NextResponse.redirect(new URL("/login", request.url));
-//   }
+  return NextResponse.redirect(new URL("/login", request.url));
+}
 
-//   let decodedData = null;
-//   try {
-//     decodedData = jwtDecode(accessToken);
-//   } catch (error) {
-//     console.error("Invalid token:", error);
-//     return NextResponse.redirect(new URL("/login", request.url));
-//   }
-
-//   const role = decodedData?.role;
-//   if (role && roleBasedPrivateRoutes[role]) {
-//     const routes = roleBasedPrivateRoutes[role];
-//     if (routes.some((route) => pathname.match(route))) {
-//       return NextResponse.next();
-//     }
-//   }
-
-//   return NextResponse.redirect(new URL("/", request.url));
-// }
-
-// export const config = {
-//   matcher: ["/login", "/registration", "/dashboard/:page*"],
-// };
+export const config = {
+  matcher: ["/login", "/registration", "/dashboard/:page*"],
+};
+//

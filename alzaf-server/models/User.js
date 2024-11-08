@@ -8,37 +8,15 @@ const UserSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    fullName: {
+    name: {
       type: String,
-      maxLength: [100, "Name is too large"],
-      default: "N/A",
-    },
-    bio: {
-      type: String,
-      maxLength: [300, "Bio is too large"],
-      default: "Add Bio",
-    },
-    profile: {
-      type: String,
-      validate: {
-        validator: (value) =>
-          validator.isURL(value, {
-            protocols: ["http", "https"],
-            require_tld: true,
-            require_protocol: true,
-          }),
 
-        message: "Invalid image URL",
-      },
+      required: true,
     },
-    fatherName: {
-      type: String,
-      default: "N/A",
+    dateOfBirth: {
+      type: Date,
     },
-    phone: {
-      type: String,
-      default: "N/A",
-    },
+
     password: {
       type: String,
       required: true,
@@ -51,59 +29,24 @@ const UserSchema = mongoose.Schema(
       },
       required: true,
     },
-    address: {
-      type: String,
-      default: "N/A",
-    },
-    company: {
-      type: String,
-      default: "N/A",
+    promotionSms: {
+      type: Boolean,
+      default: false,
     },
     role: {
       type: String,
       enum: ["moderator", "admin", "user"],
-      default: "user",
+      default: "admin",
     },
     status: {
       type: String,
       enum: ["active", "inactive"],
       default: "active",
     },
-    package: {
-      name: {
-        type: String,
-        enum: ["free", "monthly", "yearly"],
-        default: "free",
-      },
-      activeDate: {
-        type: Date,
-        default: Date.now,
-      },
-      lastDate: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-    selectedCategories: [{ type: String }],
-    emailNotification: {
-      type: Boolean,
-      default: false,
-    },
-    social: {
-      linkedin: {
-        type: String,
-      },
-      facebook: {
-        type: String,
-      },
-      whatsApp: {
-        type: String,
-        default: "N/A",
-      },
-    },
+
     isVerified: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     isDeleted: {
       type: Boolean,
@@ -119,14 +62,6 @@ const UserSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
-// Hash password
-// UserSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) return next();
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-//   next();
-// });
 
 const User = mongoose.model("User", UserSchema);
 module.exports = User;

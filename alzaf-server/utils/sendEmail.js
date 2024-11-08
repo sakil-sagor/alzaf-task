@@ -6,8 +6,8 @@ const sendEmail = async (options) => {
     port: 587,
     secure: false,
     auth: {
-      user: "tendertradinginc9@gmail.com",
-      pass: "mikgrsgpnxcoubgo",
+      user: "sakilsagor76543@gmail.com",
+      pass: "luzfdmfrjuqjhcvx",
     },
     tls: {
       rejectUnauthorized: false,
@@ -15,7 +15,7 @@ const sendEmail = async (options) => {
   });
 
   const mailOptions = {
-    from: '"Tender Trading Inc." <tendertradinginc9@gmail.com>',
+    from: '"Alzaf It Solutions." <sakilsagor76543@gmail.com>',
     to: options.to,
     subject: options.subject,
     text: options.text,
@@ -31,8 +31,3 @@ const sendEmail = async (options) => {
 };
 
 module.exports = sendEmail;
-
-// tender: tqeceloapbekxnce;
-// tender2: "mikgrsgpnxcoubgo"
-// tendertradinginc1@gmail.com
-// tender: tiryqnufokjybnee

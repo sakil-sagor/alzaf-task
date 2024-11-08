@@ -12,11 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { logOut } from "@/utils/action/authAction";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import { usePathname } from "next/navigation";
+
 import { HiMenuAlt1 } from "react-icons/hi";
 import { IoIosLogOut } from "react-icons/io";
 
@@ -29,21 +28,15 @@ const SideNavbar = ({ session }) => {
 
   const handleLogOut = async () => {
     await logOut();
-    // setUser(null);
-    router.push("/");
+
+    router.push("/login");
   };
 
   const links = [
     { id: 1, href: "/", label: "Home" },
 
     {
-      id: 3,
-      href: "/dashboard/banner-page",
-      label: "Banner",
-    },
-
-    {
-      id: 13,
+      id: 2,
       href: "/dashboard/user-page",
       label: "Users",
     },
@@ -65,7 +58,6 @@ const SideNavbar = ({ session }) => {
           <p className="font-semibold ">Admin Dashboard</p>
         </div>
 
-        {/* Mapping over links */}
         <div className="flex flex-col gap-2">
           {links.map((link) => (
             <Button
@@ -82,15 +74,13 @@ const SideNavbar = ({ session }) => {
         <Button
           className="mt-5 w-full gap-2"
           variant="destructive"
-          onClick={() => signOut()}
+          onClick={handleLogOut}
         >
           Logout <IoIosLogOut size={25} />
         </Button>
       </section>
 
-      {/* //* For Smaller Devices */}
       <section className="px-2.5 py-4 flex lg:hidden justify-between items-center w-full sticky top-0 z-50 bg-background border-b">
-        {/* //* Slider */}
         <div>
           <Sheet>
             <SheetTrigger asChild>
@@ -100,7 +90,6 @@ const SideNavbar = ({ session }) => {
             </SheetTrigger>
             <SheetContent side="left">
               <div className="mt-5 flex flex-col gap-2">
-                {/* Map over routes and generate links */}
                 {links.map((link) => (
                   <Button
                     key={link.id}
@@ -116,7 +105,7 @@ const SideNavbar = ({ session }) => {
               <Button
                 className="my-5 w-full gap-2"
                 variant="destructive"
-                onClick={() => signOut()}
+                onClick={handleLogOut}
               >
                 Logout <IoIosLogOut size={25} />
               </Button>
@@ -124,7 +113,6 @@ const SideNavbar = ({ session }) => {
           </Sheet>
         </div>
 
-        {/* //* LOGO */}
         <Link href={"/"}>
           <div className="flex items-center gap-1">
             <Image
@@ -141,16 +129,11 @@ const SideNavbar = ({ session }) => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                {/* <AvatarImage src={user?.profile || ""} alt="profile-picture" /> */}
-                <AvatarFallback className="bg-blue-600 font-semibold text-white">
-                  {/* {user?.fullName?.split("")[0]} */}
-                </AvatarFallback>
+                <AvatarFallback className="bg-blue-600 font-semibold text-white"></AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-1.5">
-              <DropdownMenuLabel>
-                {/* {user?.fullName || "Not Available"} */}
-              </DropdownMenuLabel>
+              <DropdownMenuLabel></DropdownMenuLabel>
               <DropdownMenuSeparator />
               <Link href={"/"}>
                 <DropdownMenuItem asChild>
@@ -161,7 +144,7 @@ const SideNavbar = ({ session }) => {
                 <Button
                   className="my-1 w-full gap-2"
                   variant="destructive"
-                  onClick={() => signOut()}
+                  onClick={handleLogOut}
                 >
                   Logout <IoIosLogOut size={25} />
                 </Button>

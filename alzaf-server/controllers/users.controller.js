@@ -7,14 +7,17 @@ const {
   verifyEmailLink,
   fogetpassUpdateEmail,
   resetPasswordDb,
+  getAllUserFromDb,
+  deleteUserfromDb,
+  updateUserfromDb,
 } = require("../services/users.service");
 const { generateToken } = require("../utils/token");
 
 exports.createUser = async (req, res) => {
   try {
-    const { fullName, email, phone, password } = req.body;
+    const { email } = req.body;
     const user = await User.findOne({
-      $or: [{ email: email }, { phone: phone }],
+      email: email,
     });
 
     if (user) {
@@ -24,13 +27,12 @@ exports.createUser = async (req, res) => {
         );
       }
       // this condition for email verification
-      // if (user?.isVerified === false)
-      //   throw new Error(
-      //     "Your verification token has already been sent to your email. Please check your email or try again after 15 minutes."
-      //   );
-      // if (user.isVerified === true) throw new Error("User already exists");
+      if (user?.isVerified === false)
+        throw new Error(
+          "Your verification token has already been sent to your email. Please check your email or try again after 15 minutes."
+        );
+      if (user.isVerified === true) throw new Error("User already exists");
       if (user.email === email) throw new Error("User already exists");
-      if (user.phone === phone) throw new Error("Phone number already used");
     }
 
     // make unique user id
@@ -42,7 +44,8 @@ exports.createUser = async (req, res) => {
     } else {
       userId = 1001;
     }
-    const newUser = await register(userId, fullName, email, phone, password);
+    const userData = { ...req.body, userId };
+    const newUser = await register(userData);
     res.status(201).json({ success: true, user: newUser });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
@@ -61,7 +64,7 @@ exports.verifyEmail = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log(email, password);
     if (!email || !password) {
       return res.status(401).json({
         status: "fail",
@@ -78,15 +81,15 @@ exports.loginUser = async (req, res) => {
     }
     const token = generateToken(result);
     const { password: pwd, ...findUser } = result.toObject();
-
+    console.log(token);
     res
-      .cookie("token", token, {
+      .cookie("accessToken", token, {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: true,
         sameSite: "none",
       })
-      .send({ success: true, userData: findUser });
+      .send({ success: true, data: token });
   } catch (error) {
     res.status(500).json({
       status: "fail",
@@ -96,52 +99,53 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-// forget password
-exports.forgetPassword = async (req, res) => {
+// get all user for dashbaord
+exports.getAllUser = async (req, res) => {
   try {
-    const { email } = req?.query;
-    const userData = await findUserByPhone(email);
-
+    const { page, limit, search } = req.query;
+    const result = await getAllUserFromDb(page, limit, search);
     res.status(200).json({
       status: "success",
-      data: userData,
+      message: "Successfully get ",
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
       status: "fail",
-      message: "Couldn't create User",
+      message: "Couldn't  find ",
       error: error.message,
     });
   }
 };
-// forget password send email for verify
-exports.sendEmailForgetPass = async (req, res) => {
-  try {
-    const { email } = req?.query;
-    const userData = await fogetpassUpdateEmail(email);
 
+exports.updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await updateUserfromDb(id, req.body);
     res.status(200).json({
       status: "success",
+      message: "Successfully Updated ",
     });
   } catch (error) {
     res.status(500).json({
       status: "fail",
-      error: error,
+      message: "Couldn't find",
+      error: error.message,
     });
   }
 };
-// forget password after send email for verify and set pass
-exports.resetPassword = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
-    const { token } = req.query;
-    const { new_password } = req.body;
-    const userData = await resetPasswordDb(token, new_password);
+    const { id } = req.params;
+    const result = await deleteUserfromDb(id);
     res.status(200).json({
       status: "success",
+      message: "Successfully Updated ",
     });
   } catch (error) {
     res.status(500).json({
       status: "fail",
+      message: "Couldn't find",
       error: error.message,
     });
   }

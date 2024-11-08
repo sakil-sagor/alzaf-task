@@ -1,44 +1,104 @@
 "use client";
-import { createRef, useEffect } from "react";
-import { useFormState } from "react-dom";
 
-import { toast } from "sonner";
-
-import { signUpUser } from "@/utils/action/authAction";
 import YearSelect from "@/utils/YearSelect";
+import ActionSubmitButton from "@/utils/action/ActionSubmitButton";
 import { signIn } from "next-auth/react";
-
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
-const RegistrationForm = () => {
-  const ref = createRef();
-  const [state, fromAction] = useFormState(signUpUser, null);
+import { toast } from "sonner";
 
-  useEffect(() => {
-    if (state && state.success) {
-      toast("successfully sign up");
-      ref.current?.reset();
+const RegistrationForm = () => {
+  const router = useRouter();
+  const [year, setYear] = useState(null);
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState(null);
+  const [promotionSms, setPromotionSms] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("custom");
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Password did not match.");
     }
-  }, [state, ref]);
-  console.log("Ov23liRdTKlTtIYJV61g");
-  console.log(process.env.GITHUB_SECRET);
+    if (!validatePassword(formData.password)) {
+      toast.error(
+        "Password must be at least 8 characters long, include one uppercase letter, one digit, and one special character."
+      );
+      return;
+    }
+
+    const dateOfBirth = `${year}-${month}-${day}`;
+    const data = { ...formData, dateOfBirth, promotionSms };
+
+    try {
+      setLoading(true);
+      console.log(data);
+      const response = await fetch(
+        "https://alzaf-server.vercel.app/api/v1/users/createuser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const result = await response.json();
+      if (response.ok && result.success) {
+        toast.success("Sign up successful");
+        setTimeout(() => {
+          router.push("/afterRegistration");
+        }, 1000);
+      } else {
+        toast.error(result.message || "Sign up failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className=" min-h-screen bg-gray-100 md:pt-20">
-      <div className="w-full  bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+    <div className="min-h-screen bg-gray-100 md:pt-20">
+      <div className="w-full bg-white p-8 rounded-lg shadow-lg border border-gray-200">
         <form
           className="grid grid-cols-1 md:grid-cols-2 justify-between gap-6"
-          ref={ref}
-          action={fromAction}
+          onSubmit={handleSubmit}
         >
           <div className="space-y-4">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold  ">Welcome to Alzaf.com</h2>
+              <h2 className="text-2xl font-bold">Welcome to Alzaf.com</h2>
               <div>
                 <Link
                   href="/login"
-                  className="text-orange-500 font-bold text-xl hover:underline md:hidden "
+                  className="text-orange-500 font-bold text-xl hover:underline md:hidden"
                 >
                   Login
                 </Link>
@@ -49,10 +109,12 @@ const RegistrationForm = () => {
                 Full name
               </label>
               <input
+                required
                 type="text"
                 placeholder="Full name"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                name="fullName"
+                name="name"
+                onChange={handleInputChange}
               />
             </div>
 
@@ -61,10 +123,12 @@ const RegistrationForm = () => {
                 Phone Number or Email
               </label>
               <input
+                required
                 type="text"
                 placeholder="Phone or Email"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                name="emailPhone"
+                name="email"
+                onChange={handleInputChange}
               />
             </div>
 
@@ -77,6 +141,7 @@ const RegistrationForm = () => {
                 placeholder="Please enter your password"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 name="password"
+                onChange={handleInputChange}
               />
             </div>
 
@@ -85,10 +150,12 @@ const RegistrationForm = () => {
                 Confirm Password
               </label>
               <input
+                required
                 type="password"
                 placeholder="Confirm password"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 name="confirmPassword"
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -106,28 +173,38 @@ const RegistrationForm = () => {
                 Birthday
               </label>
               <div className="grid grid-cols-3 gap-2">
-                <select className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-                  <option>Month</option>
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
-                  <option>April</option>
-                  <option>May</option>
-                  <option>Jun</option>
-                  <option>July</option>
-                  <option>August</option>
-                  <option>September</option>
-                  <option>October</option>
-                  <option>November</option>
-                  <option>December</option>
+                <select
+                  required
+                  onChange={(e) => setMonth(e.target.value)}
+                  className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                >
+                  <option value="">Month</option>
+                  <option value="01">January</option>
+                  <option value="02">February</option>
+                  <option value="03">March</option>
+                  <option value="04">April</option>
+                  <option value="05">May</option>
+                  <option value="06">June</option>
+                  <option value="07">July</option>
+                  <option value="08">August</option>
+                  <option value="09">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
                 </select>
-                <YearSelect value="Day" low={1} top={31}></YearSelect>
-                <YearSelect value="Year" low={1950} top={2024}></YearSelect>
+                <YearSelect functinName={setDay} value="Day" low={1} top={31} />
+                <YearSelect
+                  functinName={setYear}
+                  value="Year"
+                  low={1950}
+                  top={2024}
+                />
               </div>
             </div>
 
             <div className="flex items-center">
               <input
+                onChange={(e) => setPromotionSms(!promotionSms)}
                 type="checkbox"
                 className="h-4 w-4 text-orange-500 focus:ring-orange-400 border-gray-300 rounded"
               />
@@ -136,41 +213,38 @@ const RegistrationForm = () => {
               </label>
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-2 mt-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transition"
-            >
-              Sign Up
-            </button>
+            <ActionSubmitButton>Sign Up</ActionSubmitButton>
 
             <div className="my-4 text-center text-gray-500">Or</div>
+            <div className="space-y-2">
+              <button
+                type="button"
+                onClick={() =>
+                  signIn("github", {
+                    callbackUrl: "http://localhost:3000/dashboard",
+                  })
+                }
+                className="w-full py-2 flex items-center justify-center gap-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 transition"
+              >
+                <FaGithub className="text-2xl" />
+                Sign Up with Github
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  signIn("google", {
+                    callbackUrl: "http://localhost:3000/dashboard",
+                  })
+                }
+                className="w-full py-2 flex items-center justify-center gap-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition"
+              >
+                <FcGoogle className="text-2xl" />
+                Sign Up with Google
+              </button>
+            </div>
           </div>
         </form>
-        <div className="space-y-2">
-          <button
-            onClick={() =>
-              signIn("github", {
-                callbackUrl: "http://localhost:3000/dashboard",
-              })
-            }
-            className="w-full py-2 flex items-center justify-center gap-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 transition"
-          >
-            <FaGithub className="text-2xl" />
-            Sign Up with Github
-          </button>
-
-          <button
-            onClick={() =>
-              signIn("google", {
-                callbackUrl: "http://localhost:3000/dashboard",
-              })
-            }
-            className="w-full py-2 flex items-center justify-center gap-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition"
-          >
-            <FcGoogle className="text-2xl" />
-            Sign Up with Google
-          </button>
-        </div>
       </div>
     </div>
   );

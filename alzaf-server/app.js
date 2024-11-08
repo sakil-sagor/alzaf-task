@@ -5,7 +5,11 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:3000",
+      "https://www.alzaf-frontend.vercel.app",
+      "https://alzaf-frontend.vercel.app/",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
     allowedHeaders: [
       "Content-Type",
@@ -25,8 +29,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 const usersRoute = require("./routes/v1/users.route");
+const setupScheduler = require("./utils/scheduler");
 
-//! Updated this to users so fix this for the login and other routes
 app.use("/api/v1/users", usersRoute);
+
+// remove unverified user form database
+setupScheduler();
 
 module.exports = app;

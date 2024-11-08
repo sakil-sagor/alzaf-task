@@ -19,7 +19,7 @@ const NavItems = ({ onNavItemClick }) => {
               <div className=" bg-[#F5F5F5] p-2 rounded-lg">
                 <FaRegUser className="text-2xl" />
               </div>
-              <p className="text-[12px] bg-[#F97316] px-[4px] py-[3px]  text-white rounded-full absolute top-[-15] right-[-10]">
+              <p className="text-[12px] bg-[#F97316] px-[4px] py-[3px]  text-white rounded-full absolute top-[-10px] right-[-8px]">
                 20
               </p>
             </div>
