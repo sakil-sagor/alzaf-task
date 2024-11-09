@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 
 const dashboardPage = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session);
+
   return (
     <div className="w-full mx-auto">
       <div className="py-12">

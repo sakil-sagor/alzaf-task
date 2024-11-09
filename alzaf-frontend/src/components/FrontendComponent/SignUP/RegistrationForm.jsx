@@ -43,6 +43,7 @@ const RegistrationForm = () => {
     console.log("custom");
     if (formData.password !== formData.confirmPassword) {
       toast.error("Password did not match.");
+      return;
     }
     if (!validatePassword(formData.password)) {
       toast.error(

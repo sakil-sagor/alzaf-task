@@ -78,7 +78,7 @@ const LoginForm = () => {
           type="button"
           onClick={() =>
             signIn("github", {
-              callbackUrl: "http://localhost:3000/dashboard",
+              callbackUrl: "https://alzaf-frontend.vercel.app/dashboard",
             })
           }
           className="w-full py-2 flex items-center justify-center gap-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 transition"
@@ -91,7 +91,7 @@ const LoginForm = () => {
           type="button"
           onClick={() =>
             signIn("google", {
-              callbackUrl: "http://localhost:3000/dashboard",
+              callbackUrl: "https://alzaf-frontend.vercel.app/dashboard",
             })
           }
           className="w-full py-2 flex items-center justify-center gap-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition"
